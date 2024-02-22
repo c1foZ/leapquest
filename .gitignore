@@ -8,3 +8,6 @@ UserSettings/
 Packages/
 .vscode
 .DS_Store
+
+Assembly-CSharp.csproj
+LeapQuest.sln
