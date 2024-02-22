@@ -8,6 +8,7 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D rb;
     private bool isGrounded;
     private GameManager gameManager;
+    private bool isFacingRight = true;
 
     private void Start()
     {
@@ -21,12 +22,21 @@ public class PlayerMovement : MonoBehaviour
         Vector2 movement = new Vector2(horizontalInput * speed, rb.velocity.y);
         rb.velocity = movement;
 
+        if (horizontalInput > 0 && !isFacingRight)
+        {
+            FlipCharacter();
+        }
+        else if (horizontalInput < 0 && isFacingRight)
+        {
+            FlipCharacter();
+        }
+
         if (isGrounded && Input.GetKey(KeyCode.W))
         {
             Jump();
         }
-        
-         if (transform.position.y < -5f)
+
+        if (transform.position.y < -5f)
         {
             gameManager.RestartGame();
         }
@@ -51,5 +61,15 @@ public class PlayerMovement : MonoBehaviour
         {
             isGrounded = false;
         }
+    }
+
+    private void FlipCharacter()
+    {
+        isFacingRight = !isFacingRight;
+
+        // Flip the character's scale on the X-axis
+        Vector3 scale = transform.localScale;
+        scale.x *= -1;
+        transform.localScale = scale;
     }
 }
