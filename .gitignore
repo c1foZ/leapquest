@@ -6,5 +6,6 @@ Build/
 Builds/
 UserSettings/
 ProjectSettings/
+Packages/
 .vscode
 .DS_Store
