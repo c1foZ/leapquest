@@ -1,6 +1,10 @@
-.vscode
-UserSettings
-bestgameever.sln
-.DS_Store
 Library/
 Temp/
+obj/
+Logs/
+Build/
+Builds/
+UserSettings/
+ProjectSettings/
+.vscode
+.DS_Store
