@@ -7,10 +7,12 @@ public class PlayerMovement : MonoBehaviour
 
     private Rigidbody2D rb;
     private bool isGrounded;
+    private GameManager gameManager;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        gameManager = GameManager.instance;
     }
 
     private void Update()
@@ -22,6 +24,11 @@ public class PlayerMovement : MonoBehaviour
         if (isGrounded && Input.GetKey(KeyCode.W))
         {
             Jump();
+        }
+        
+         if (transform.position.y < -5f)
+        {
+            gameManager.RestartGame();
         }
     }
 
