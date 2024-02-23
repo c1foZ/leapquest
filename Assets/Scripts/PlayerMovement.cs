@@ -20,7 +20,7 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
         float horizontalInput = Input.GetAxis("Horizontal");
-        Vector2 movement = new Vector2(horizontalInput * speed, rb.velocity.y);
+        Vector2 movement = new(horizontalInput * speed, rb.velocity.y);
         rb.velocity = movement;
 
         if (horizontalInput > 0 && !isFacingRight)

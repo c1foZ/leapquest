@@ -42,13 +42,6 @@ public class GameManager : MonoBehaviour
     {
         isGamePaused = !isGamePaused;
 
-        if (isGamePaused)
-        {
-            Time.timeScale = 0f;
-        }
-        else
-        {
-            Time.timeScale = 1f;
-        }
+        Time.timeScale = isGamePaused ? 0f : 1f;
     }
 }

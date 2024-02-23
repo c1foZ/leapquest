@@ -9,7 +9,7 @@ public class CameraFollow : MonoBehaviour
     public float minYLimit = -2f; 
     public float maxYLimit = -1f;
 
-    void LateUpdate()
+    private void LateUpdate()
     {
         if (playerTransform != null)
         {

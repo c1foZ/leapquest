@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Spikes : MonoBehaviour
 {
-    private  GameManager gameManager;
+    private GameManager gameManager;
     private void Start()
     {
         gameManager = GameManager.instance;
