@@ -4,12 +4,12 @@ public class PlayerMovement : MonoBehaviour
 {
     public float speed = 5f;
     public float jumpForce = 10f;
-    public LayerMask groundLayer; // Assign the ground layer in the inspector
+    public LayerMask groundLayer;
 
     private Rigidbody2D rb;
     private GameManager gameManager;
     private bool isFacingRight = true;
-    private bool isGrounded; // Declare isGrounded variable
+    private bool isGrounded;
 
     private void Start()
     {

@@ -4,13 +4,21 @@ public class CameraFollow : MonoBehaviour
 {
     public Transform playerTransform;
     public Vector3 offset;
+    public float minXLimit = -2.3f;
+    public float maxXLimit = 10f;
+    public float minYLimit = -2f; 
+    public float maxYLimit = -1f;
 
     void LateUpdate()
     {
         if (playerTransform != null)
         {
-            // Set the camera's position to the player's position with an offset
-            transform.position = playerTransform.position + offset;
+            Vector3 targetPosition = playerTransform.position + offset;
+
+            targetPosition.x = Mathf.Clamp(targetPosition.x, minXLimit, maxXLimit);
+            targetPosition.y = Mathf.Clamp(targetPosition.y, minYLimit, maxYLimit);
+
+            transform.position = targetPosition;
         }
     }
 }
