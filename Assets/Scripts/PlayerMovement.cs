@@ -4,11 +4,12 @@ public class PlayerMovement : MonoBehaviour
 {
     public float speed = 5f;
     public float jumpForce = 10f;
+    public LayerMask groundLayer; // Assign the ground layer in the inspector
 
     private Rigidbody2D rb;
-    private bool isGrounded;
     private GameManager gameManager;
     private bool isFacingRight = true;
+    private bool isGrounded; // Declare isGrounded variable
 
     private void Start()
     {
@@ -31,6 +32,8 @@ public class PlayerMovement : MonoBehaviour
             FlipCharacter();
         }
 
+        isGrounded = Physics2D.Raycast(transform.position, Vector2.down, 0.4f, groundLayer);
+
         if (isGrounded && Input.GetKey(KeyCode.W))
         {
             Jump();
@@ -47,27 +50,9 @@ public class PlayerMovement : MonoBehaviour
         rb.velocity = new Vector2(rb.velocity.x, jumpForce);
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Floor"))
-        {
-            isGrounded = true;
-        }
-    }
-
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Floor"))
-        {
-            isGrounded = false;
-        }
-    }
-
     private void FlipCharacter()
     {
         isFacingRight = !isFacingRight;
-
-        // Flip the character's scale on the X-axis
         Vector3 scale = transform.localScale;
         scale.x *= -1;
         transform.localScale = scale;
