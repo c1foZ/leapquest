@@ -180,7 +180,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreText: {fileID: 3516382728385483059}
-  score: 0
 --- !u!1 &6277418063498906315
 GameObject:
   m_ObjectHideFlags: 0
@@ -194,7 +193,7 @@ GameObject:
   - component: {fileID: 2629726151689846754}
   - component: {fileID: 2450013288411579984}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: Score manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
