@@ -2,6 +2,17 @@ using UnityEngine;
 
 public class Cherry : MonoBehaviour
 {
+    private GameManager gameManager;
+
+    private void Start()
+    {
+        gameManager = FindObjectOfType<GameManager>();
+        if (gameManager == null)
+        {
+            Debug.LogWarning("GameManager not found in the scene.");
+        }
+    }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
@@ -10,9 +21,13 @@ public class Cherry : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
     private void CollectCherry()
     {
         Debug.Log("Cherry collected!");
-        // Add your logic for what happens when the cherry is collected
+        if (gameManager != null)
+        {
+            gameManager.IncreaseScore(1);
+        }
     }
 }
