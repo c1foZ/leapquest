@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerMovementTouchOld : MonoBehaviour
 {
     public float moveSpeed = 5f;
     public float jumpForce = 5f;

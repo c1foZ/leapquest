@@ -11,3 +11,4 @@ Packages/
 
 Assembly-CSharp.csproj
 LeapQuest.sln
+.prettierrc

@@ -1,60 +1,89 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public float speed = 5f;
-    public float jumpForce = 10f;
-    public LayerMask groundLayer;
+    private GameManager gameManager;
+    private readonly float moveSpeed = 4f;
+    private readonly float groundThreshold = -5f;
+    private LayerMask groundLayer;
+    private const string GroundLayerName = "Ground";
+    private readonly float rayDistance = 0.47f;
+    private readonly float jumpForce = 6f;
 
     private Rigidbody2D rb;
-    private GameManager gameManager;
-    private bool isFacingRight = true;
+    private PlayerInputActions playerInputActions;
     private bool isGrounded;
+    private bool isJumping;
+
+    private void Awake()
+    {
+        gameManager = GameManager.instance;
+        rb = GetComponent<Rigidbody2D>();
+        playerInputActions = new PlayerInputActions();
+        groundLayer = LayerMask.GetMask(GroundLayerName);
+
+        playerInputActions.Enable();
+        playerInputActions.Player.Jump.started += OnJumpStart;
+        playerInputActions.Player.Jump.canceled += OnJumpEnd;
+    }
 
     private void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
         gameManager = GameManager.instance;
+        if (gameManager == null)
+        {
+            Debug.LogWarning("GameManager not found in the scene.");
+        }
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
-        float horizontalInput = Input.GetAxis("Horizontal");
-        Vector2 movement = new(horizontalInput * speed, rb.velocity.y);
-        rb.velocity = movement;
+        MovePlayer();
+        CheckGround();
+        HandleJump();
+        RestartIfBelowGround();
+    }
 
-        if (horizontalInput > 0 && !isFacingRight)
-        {
-            FlipCharacter();
-        }
-        else if (horizontalInput < 0 && isFacingRight)
-        {
-            FlipCharacter();
-        }
+    private void MovePlayer()
+    {
+        Vector2 inputMove = playerInputActions.Player.Movement.ReadValue<Vector2>();
+        rb.velocity = new Vector2(inputMove.x * moveSpeed, rb.velocity.y);
+    }
 
-        isGrounded = Physics2D.Raycast(transform.position, Vector2.down, 0.4f, groundLayer);
-
-        if (isGrounded && Input.GetKey(KeyCode.W))
+    private void HandleJump()
+    {
+        if (isJumping && isGrounded)
         {
             Jump();
-        }
-
-        if (transform.position.y < -5f)
-        {
-            gameManager.RestartGame();
         }
     }
 
     private void Jump()
     {
-        rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+        rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
     }
 
-    private void FlipCharacter()
+    private void CheckGround()
     {
-        isFacingRight = !isFacingRight;
-        Vector3 scale = transform.localScale;
-        scale.x *= -1;
-        transform.localScale = scale;
+        isGrounded = Physics2D.Raycast(transform.position, Vector2.down, rayDistance, groundLayer);
+    }
+
+    private void RestartIfBelowGround()
+    {
+        if (transform.position.y < groundThreshold && gameManager != null)
+        {
+            gameManager.RestartGame();
+        }
+    }
+
+    private void OnJumpStart(InputAction.CallbackContext context)
+    {
+        isJumping = true;
+    }
+
+    private void OnJumpEnd(InputAction.CallbackContext context)
+    {
+        isJumping = false;
     }
 }
