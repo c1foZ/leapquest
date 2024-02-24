@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI scoreText;
 
     private bool isGamePaused = false;
-    public int score = 0;
+    private int score = 0;
 
     private void Awake()
     {

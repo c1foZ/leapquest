@@ -15,6 +15,7 @@ public class PlayerMovement : MonoBehaviour
     private PlayerInputActions playerInputActions;
     private bool isGrounded;
     private bool isJumping;
+    private bool isFacingRight;
 
     private void Awake()
     {
@@ -49,6 +50,7 @@ public class PlayerMovement : MonoBehaviour
     {
         Vector2 inputMove = playerInputActions.Player.Movement.ReadValue<Vector2>();
         rb.velocity = new Vector2(inputMove.x * moveSpeed, rb.velocity.y);
+        FlipCharacter(inputMove.x);
     }
 
     private void HandleJump()
@@ -85,5 +87,13 @@ public class PlayerMovement : MonoBehaviour
     private void OnJumpEnd(InputAction.CallbackContext context)
     {
         isJumping = false;
+    }
+    private void FlipCharacter(float horizontalInput)
+    {
+        if ((horizontalInput < 0 && !isFacingRight) || (horizontalInput > 0 && isFacingRight))
+        {
+            isFacingRight = !isFacingRight;
+            transform.localScale = new Vector2(-transform.localScale.x, transform.localScale.y);
+        }
     }
 }
