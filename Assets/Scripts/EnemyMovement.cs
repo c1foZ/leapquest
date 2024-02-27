@@ -2,36 +2,36 @@ using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour
 {
-    [SerializeField] private float moveSpeed = 0.5f;
-    [SerializeField] private Vector2 offset = new Vector2(3f, 0f);
 
     private Vector2 pointA;
     private Vector2 pointB;
+    private readonly float moveSpeed = 0.5f;
+    private Vector2 offset = new(3f, 0f);
 
     [SerializeField] private GameObject projectilePrefab;
-    private readonly float fireInterval = 1f; // Fire every second
+    private readonly float fireHeightOffset = -0.2f;
+    private readonly float fireInterval = 1f;
     private float nextFireTime;
 
-    private Vector2 facingDirection; // Store the facing direction
+    private Vector2 facingDirection;
 
     private void Start()
     {
         pointA = (Vector2)transform.position + offset;
         pointB = (Vector2)transform.position - offset;
-        nextFireTime = Time.time + fireInterval; // Initial fire time
+        nextFireTime = Time.time + fireInterval;
 
-        facingDirection = Vector2.right; // Initial facing direction
+        facingDirection = Vector2.right;
     }
 
     private void Update()
     {
         MoveBetweenPoints();
 
-        // Check if it's time to fire
         if (Time.time >= nextFireTime)
         {
             FireProjectile();
-            nextFireTime = Time.time + fireInterval; // Set next fire time
+            nextFireTime = Time.time + fireInterval;
         }
     }
 
@@ -57,19 +57,17 @@ public class EnemyMovement : MonoBehaviour
         scale.x = isFacingRight ? Mathf.Abs(scale.x) : -Mathf.Abs(scale.x);
         transform.localScale = scale;
 
-        // Update the facing direction based on the flip
         facingDirection = isFacingRight ? Vector2.right : Vector2.left;
     }
 
     private void FireProjectile()
     {
-        // Instantiate the projectile
-        GameObject projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
+        Vector2 firePoint = new(transform.position.x, transform.position.y + fireHeightOffset);
+        GameObject projectile = Instantiate(projectilePrefab, firePoint, Quaternion.identity);
 
-        // Set the direction of the projectile based on the enemy's facing direction
         if (projectile.TryGetComponent<Projectile>(out var projectileScript))
         {
-            projectileScript.SetDirection(facingDirection); // Use the facing direction
+            projectileScript.SetDirection(facingDirection);
         }
     }
 }
