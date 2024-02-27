@@ -2,11 +2,17 @@ using UnityEngine;
 
 public class FramerateManager : MonoBehaviour
 {
-    private readonly int targetFPS = 60;
+    private readonly int target = 60;
 
-    private void Awake()
+    void Awake()
     {
-        Application.targetFrameRate = targetFPS;
         QualitySettings.vSyncCount = 0;
+        Application.targetFrameRate = target;
+    }
+
+    void Update()
+    {
+        if (Application.targetFrameRate != target)
+            Application.targetFrameRate = target;
     }
 }

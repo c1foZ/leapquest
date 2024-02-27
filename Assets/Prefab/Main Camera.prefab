@@ -107,7 +107,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerTransform: {fileID: 0}
   offset: {x: 0, y: 0, z: -0.4}
-  minXLimit: -2.3
-  maxXLimit: 10
+  minXLimit: -52.9
+  maxXLimit: 10000
   minYLimit: -2
   maxYLimit: -1

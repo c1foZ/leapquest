@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour
 {
-
     private Vector2 pointA;
     private Vector2 pointB;
     private readonly float moveSpeed = 0.5f;
@@ -62,12 +61,29 @@ public class EnemyMovement : MonoBehaviour
 
     private void FireProjectile()
     {
-        Vector2 firePoint = new(transform.position.x, transform.position.y + fireHeightOffset);
+        Vector2 firePoint = new Vector2(transform.position.x, transform.position.y + fireHeightOffset);
         GameObject projectile = Instantiate(projectilePrefab, firePoint, Quaternion.identity);
 
         if (projectile.TryGetComponent<Projectile>(out var projectileScript))
         {
             projectileScript.SetDirection(facingDirection);
         }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            if (collision.GetContact(0).point.y > transform.position.y &&
+                collision.relativeVelocity.y < 0)
+            {
+                KillEnemy();
+            }
+        }
+    }
+
+    private void KillEnemy()
+    {
+        Destroy(gameObject);
     }
 }
