@@ -13,9 +13,16 @@ public class EnemyMovement : MonoBehaviour
     private float nextFireTime;
 
     private Vector2 facingDirection;
+    private GameManager gameManager;
 
     private void Start()
     {
+        gameManager = FindObjectOfType<GameManager>();
+        if (gameManager == null)
+        {
+            Debug.LogWarning("GameManager not found in the scene.");
+        }
+
         pointA = (Vector2)transform.position + offset;
         pointB = (Vector2)transform.position - offset;
         nextFireTime = Time.time + fireInterval;
@@ -78,6 +85,7 @@ public class EnemyMovement : MonoBehaviour
                 collision.relativeVelocity.y < 0)
             {
                 KillEnemy();
+                gameManager.IncreaseScore(3);
             }
         }
     }
