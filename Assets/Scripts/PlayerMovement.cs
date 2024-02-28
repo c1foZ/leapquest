@@ -4,17 +4,26 @@ using UnityEngine.InputSystem;
 public class PlayerMovement : MonoBehaviour
 {
     private GameManager gameManager;
-    private readonly float moveSpeed = 4f;
-    private readonly float groundThreshold = -5f;
-    private LayerMask groundLayer;
-    private const string GroundLayerName = "Ground";
-    private readonly float rayDistance = 0.47f;
-    private readonly float jumpForce = 6f;
-
     private Rigidbody2D rb;
     private PlayerInputActions playerInputActions;
+
+    [Header("Movement Settings")]
+    [SerializeField] private float moveSpeed = 4f;
+    [SerializeField] private float ladderClimbSpeed = 3f;
+    [SerializeField] private bool isInLadder;
+
+    [Header("Ground Check Settings")]
+    [SerializeField] private LayerMask groundLayer;
+    private const string GroundLayerName = "Ground";
+    [SerializeField] private float rayDistance = 0.47f;
+    [SerializeField] private float groundThreshold = -5f;
     private bool isGrounded;
+
+    [Header("Jump Settings")]
+    [SerializeField] private float jumpForce = 6f;
     private bool isJumping;
+
+    [Header("Facing Direction")]
     private bool isFacingRight;
 
     private void Awake()
@@ -29,21 +38,44 @@ public class PlayerMovement : MonoBehaviour
         playerInputActions.Player.Jump.canceled += OnJumpEnd;
     }
 
-    private void Start()
+    private void FixedUpdate()
     {
-        gameManager = GameManager.instance;
-        if (gameManager == null)
+        if (isInLadder)
         {
-            Debug.LogWarning("GameManager not found in the scene.");
+            ClimbLadder();
+        }
+        else
+        {
+            MovePlayer();
+            CheckGround();
+            HandleJump();
+            RestartIfBelowGround();
         }
     }
 
-    private void FixedUpdate()
+    private void ClimbLadder()
     {
-        MovePlayer();
-        CheckGround();
-        HandleJump();
-        RestartIfBelowGround();
+        Vector2 inputMove = playerInputActions.Player.Movement.ReadValue<Vector2>();
+        rb.velocity = new Vector2(inputMove.x * moveSpeed, inputMove.y * ladderClimbSpeed);
+
+        if (inputMove.y == 0f) // If not climbing, set vertical velocity to 0
+        {
+            rb.velocity = new Vector2(rb.velocity.x, 0f);
+        }
+    }
+
+    // Add the following methods for ladder interaction
+
+    public void EnterLadder()
+    {
+        isInLadder = true;
+        rb.gravityScale = 0f;
+    }
+
+    public void ExitLadder()
+    {
+        isInLadder = false;
+        rb.gravityScale = 1f;
     }
 
     private void MovePlayer()
@@ -89,6 +121,7 @@ public class PlayerMovement : MonoBehaviour
     {
         isJumping = false;
     }
+
     private void FlipCharacter(float horizontalInput)
     {
         if ((horizontalInput < 0 && !isFacingRight) || (horizontalInput > 0 && isFacingRight))

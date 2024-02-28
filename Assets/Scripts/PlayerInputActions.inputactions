@@ -59,8 +59,30 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "left",
+                    "name": "up",
                     "id": "217034fb-e208-4b13-8099-70ab8be1b2c0",
+                    "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "down",
+                    "id": "3fd59bb3-d37a-43e7-982f-9db4e89457bd",
+                    "path": "<Keyboard>/s",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "left",
+                    "id": "dd399894-5696-4a91-8378-c34a205bb1db",
                     "path": "<Keyboard>/a",
                     "interactions": "",
                     "processors": "",
