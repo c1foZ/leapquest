@@ -6,7 +6,7 @@ public class CameraFollow : MonoBehaviour
     public Vector3 offset;
     public float minXLimit = -2.3f;
     public float maxXLimit = 10f;
-    public float minYLimit = -2f; 
+    public float minYLimit = -2f;
     public float maxYLimit = -1f;
 
     private void LateUpdate()

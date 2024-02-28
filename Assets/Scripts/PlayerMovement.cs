@@ -25,14 +25,25 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Facing Direction")]
     private bool isFacingRight;
+    private Transform originalParent;
 
     private void Awake()
     {
+        InitializeComponents();
+        SetupInputActions();
+    }
+
+    private void InitializeComponents()
+    {
         gameManager = GameManager.instance;
         rb = GetComponent<Rigidbody2D>();
-        playerInputActions = new PlayerInputActions();
         groundLayer = LayerMask.GetMask(GroundLayerName);
+        originalParent = transform.parent;
+    }
 
+    private void SetupInputActions()
+    {
+        playerInputActions = new PlayerInputActions();
         playerInputActions.Enable();
         playerInputActions.Player.Jump.started += OnJumpStart;
         playerInputActions.Player.Jump.canceled += OnJumpEnd;
@@ -53,18 +64,27 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    public void SetParent(Transform newParent)
+    {
+        originalParent = transform.parent;
+        transform.parent = newParent;
+    }
+
+    public void ResetParent()
+    {
+        transform.parent = originalParent;
+    }
+
     private void ClimbLadder()
     {
         Vector2 inputMove = playerInputActions.Player.Movement.ReadValue<Vector2>();
         rb.velocity = new Vector2(inputMove.x * moveSpeed, inputMove.y * ladderClimbSpeed);
 
-        if (inputMove.y == 0f) // If not climbing, set vertical velocity to 0
+        if (inputMove.y == 0f)
         {
             rb.velocity = new Vector2(rb.velocity.x, 0f);
         }
     }
-
-    // Add the following methods for ladder interaction
 
     public void EnterLadder()
     {
@@ -108,6 +128,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (transform.position.y < groundThreshold && gameManager != null)
         {
+            Debug.Log("Restarting game...");
             gameManager.RestartGame();
         }
     }

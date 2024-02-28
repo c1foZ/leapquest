@@ -52,4 +52,19 @@ public class MovingPlatform : MonoBehaviour
             yield return null;
         }
     }
+
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.collider.TryGetComponent<PlayerMovement>(out var platformMovement))
+        {
+            platformMovement.SetParent(transform);
+        }
+    }
+    private void OnCollisionExit2D(Collision2D other)
+    {
+        if (other.collider.TryGetComponent<PlayerMovement>(out var platformMovement))
+        {
+            platformMovement.ResetParent();
+        }
+    }
 }
