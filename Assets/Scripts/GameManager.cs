@@ -7,9 +7,11 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
     [SerializeField] private TextMeshProUGUI scoreText;
+    [SerializeField] private TextMeshProUGUI healthText;
 
     private bool isGamePaused = false;
     private int score = 0;
+    private int health = 4;
 
     private void Awake()
     {
@@ -23,6 +25,7 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
         UpdateScoreText();
+        UpdateHealthText();
     }
 
     private void Update()
@@ -37,11 +40,19 @@ public class GameManager : MonoBehaviour
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         score = 0;
+        health -= 1;
         UpdateScoreText();
+        UpdateHealthText();
+
+        if (health == 0)
+        {
+            QuitGame();
+        }
     }
 
     public void QuitGame()
     {
+        Debug.Log("QUITTING THE APP!!!");
         Application.Quit();
     }
 
@@ -60,5 +71,9 @@ public class GameManager : MonoBehaviour
     private void UpdateScoreText()
     {
         scoreText.text = "SCORE: " + score.ToString();
+    }
+    private void UpdateHealthText()
+    {
+        healthText.text = "HEALTH: " + health.ToString();
     }
 }
