@@ -27,6 +27,7 @@ public class PlayerMovement : MonoBehaviour
     [Header("Facing Direction")]
     private bool isFacingRight;
     private Transform originalParent;
+
     [Header("Animations")]
     [SerializeField] private Animator animator;
     private void Awake()
@@ -145,7 +146,6 @@ public class PlayerMovement : MonoBehaviour
     private void OnJumpEnd(InputAction.CallbackContext context)
     {
         isJumping = false;
-        animator.SetBool("isJumping", false);
     }
 
     private void FlipCharacter(float horizontalInput)

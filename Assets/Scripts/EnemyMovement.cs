@@ -2,22 +2,29 @@ using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour
 {
+    [Header("Movement Settings")]
     private Vector2 pointA;
     private Vector2 pointB;
-    private readonly float moveSpeed = 0.5f;
-    private Vector2 offset = new(3f, 0f);
+    [SerializeField] private float moveSpeed = 0.5f;
+    [SerializeField] private Vector2 offset = new(3f, 0f);
 
+    [Header("Projectile Settings")]
     [SerializeField] private GameObject projectilePrefab;
-    private readonly float fireHeightOffset = -0.2f;
-    private readonly float fireInterval = 1f;
+    [SerializeField] private float fireHeightOffset = -0.2f;
+    [SerializeField] private float fireInterval = 1f;
     private float nextFireTime;
 
     private Vector2 facingDirection;
     private GameManager gameManager;
+
     [SerializeField] private Animator animator;
 
-
     private void Start()
+    {
+        Initialize();
+    }
+
+    private void Initialize()
     {
         gameManager = FindObjectOfType<GameManager>();
         if (gameManager == null)
@@ -25,11 +32,16 @@ public class EnemyMovement : MonoBehaviour
             Debug.LogWarning("GameManager not found in the scene.");
         }
 
-        pointA = (Vector2)transform.position + offset;
-        pointB = (Vector2)transform.position - offset;
+        SetPoints();
         nextFireTime = Time.time + fireInterval;
-
         facingDirection = Vector2.right;
+    }
+
+    private void SetPoints()
+    {
+        Vector2 currentPosition = (Vector2)transform.position;
+        pointA = currentPosition + offset;
+        pointB = currentPosition - offset;
     }
 
     private void Update()
@@ -83,12 +95,19 @@ public class EnemyMovement : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            if (collision.GetContact(0).point.y > transform.position.y &&
-                collision.relativeVelocity.y < 0)
-            {
-                KillEnemy();
-                gameManager.IncreaseScore(3);
-            }
+            HandlePlayerCollision(collision);
+        }
+    }
+
+    private void HandlePlayerCollision(Collision2D collision)
+    {
+        Rigidbody2D rb = collision.gameObject.GetComponent<Rigidbody2D>();
+        if (collision.GetContact(0).point.y > transform.position.y &&
+            collision.relativeVelocity.y < 0)
+        {
+            rb.AddForce(Vector2.up * 3f, ForceMode2D.Impulse);
+            KillEnemy();
+            gameManager.IncreaseScore(3);
         }
     }
 
