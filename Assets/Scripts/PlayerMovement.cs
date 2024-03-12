@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -26,7 +27,8 @@ public class PlayerMovement : MonoBehaviour
     [Header("Facing Direction")]
     private bool isFacingRight;
     private Transform originalParent;
-
+    [Header("Animations")]
+    [SerializeField] private Animator animator;
     private void Awake()
     {
         InitializeComponents();
@@ -103,6 +105,7 @@ public class PlayerMovement : MonoBehaviour
         Vector2 inputMove = playerInputActions.Player.Movement.ReadValue<Vector2>();
         rb.velocity = new Vector2(inputMove.x * moveSpeed, rb.velocity.y);
         FlipCharacter(inputMove.x);
+        animator.SetFloat("Speed", Math.Abs(inputMove.x));
     }
 
     private void HandleJump()
@@ -122,6 +125,7 @@ public class PlayerMovement : MonoBehaviour
     private void CheckGround()
     {
         isGrounded = Physics2D.Raycast(transform.position, Vector2.down, rayDistance, groundLayer);
+        animator.SetBool("isJumping", !isGrounded);
     }
 
     private void RestartIfBelowGround()
@@ -141,6 +145,7 @@ public class PlayerMovement : MonoBehaviour
     private void OnJumpEnd(InputAction.CallbackContext context)
     {
         isJumping = false;
+        animator.SetBool("isJumping", false);
     }
 
     private void FlipCharacter(float horizontalInput)

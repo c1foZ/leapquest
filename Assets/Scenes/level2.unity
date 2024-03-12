@@ -972,18 +972,6 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 3005218112826843672, guid: 8f20097d8306840eb9a14d4c1f0d7b4a, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 2.0844905
-      objectReference: {fileID: 0}
-    - target: {fileID: 3005218112826843672, guid: 8f20097d8306840eb9a14d4c1f0d7b4a, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 2.1822753
-      objectReference: {fileID: 0}
-    - target: {fileID: 3005218112826843672, guid: 8f20097d8306840eb9a14d4c1f0d7b4a, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 3.3398764
-      objectReference: {fileID: 0}
-    - target: {fileID: 3005218112826843672, guid: 8f20097d8306840eb9a14d4c1f0d7b4a, type: 3}
       propertyPath: m_LocalPosition.x
       value: -39.27
       objectReference: {fileID: 0}
@@ -1026,10 +1014,6 @@ PrefabInstance:
     - target: {fileID: 4507976657944940730, guid: 8f20097d8306840eb9a14d4c1f0d7b4a, type: 3}
       propertyPath: m_Name
       value: Enemy
-      objectReference: {fileID: 0}
-    - target: {fileID: 8958215330254489086, guid: 8f20097d8306840eb9a14d4c1f0d7b4a, type: 3}
-      propertyPath: fireHeightOffset
-      value: -0.2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -14,6 +14,8 @@ public class EnemyMovement : MonoBehaviour
 
     private Vector2 facingDirection;
     private GameManager gameManager;
+    [SerializeField] private Animator animator;
+
 
     private void Start()
     {
@@ -92,6 +94,7 @@ public class EnemyMovement : MonoBehaviour
 
     private void KillEnemy()
     {
-        Destroy(gameObject);
+        animator.SetBool("isKilled", true);
+        Destroy(gameObject, 0.4f);
     }
 }

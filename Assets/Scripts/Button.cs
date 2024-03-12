@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class Button : MonoBehaviour
 {
+    [SerializeField] private Animator animator;
     private bool IsPressed = false;
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -15,6 +16,7 @@ public class Button : MonoBehaviour
                 if (movingPlatform.TryGetComponent<MovingPlatform>(out var platformScript))
                 {
                     IsPressed = true;
+                    animator.SetBool("isTriggered", IsPressed);
                     platformScript.StartMoving();
                 }
             }

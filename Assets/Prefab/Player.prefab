@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1598865677481968134}
   - component: {fileID: 2150719645665746674}
   - component: {fileID: 388765033457368491}
+  - component: {fileID: 201444663818292554}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -161,3 +162,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 005dc59a8205a4cc2b59bd2884e73bf6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moveSpeed: 4
+  ladderClimbSpeed: 3
+  isInLadder: 0
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  rayDistance: 0.47
+  groundThreshold: -5
+  jumpForce: 6
+  animator: {fileID: 201444663818292554}
+--- !u!95 &201444663818292554
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7870669944470308031}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: bf7268796d6ab44c9b0667a1d664ab62, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
