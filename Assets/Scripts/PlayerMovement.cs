@@ -18,11 +18,11 @@ public class PlayerMovement : MonoBehaviour
     private const string GroundLayerName = "Ground";
     [SerializeField] private float rayDistance = 0.47f;
     [SerializeField] private float groundThreshold = -5f;
-    private bool isGrounded;
+    [SerializeField] private bool isGrounded;
 
     [Header("Jump Settings")]
     [SerializeField] private float jumpForce = 6f;
-    private bool isJumping;
+    [SerializeField] private bool isJumping;
 
     [Header("Facing Direction")]
     private bool isFacingRight;
@@ -81,24 +81,28 @@ public class PlayerMovement : MonoBehaviour
     private void ClimbLadder()
     {
         Vector2 inputMove = playerInputActions.Player.Movement.ReadValue<Vector2>();
-        rb.velocity = new Vector2(inputMove.x * moveSpeed, inputMove.y * ladderClimbSpeed);
+        rb.velocity = new Vector2(inputMove.x * 1f, inputMove.y * ladderClimbSpeed);
 
         if (inputMove.y == 0f)
         {
             rb.velocity = new Vector2(rb.velocity.x, 0f);
         }
+        animator.SetFloat("Speed", Math.Abs(inputMove.y));
     }
 
     public void EnterLadder()
     {
         isInLadder = true;
         rb.gravityScale = 0f;
+        animator.SetBool("isClimbing", true);
+        animator.SetBool("isJumping", false);
     }
 
     public void ExitLadder()
     {
         isInLadder = false;
         rb.gravityScale = 1f;
+        animator.SetBool("isClimbing", false);
     }
 
     private void MovePlayer()
