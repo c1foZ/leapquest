@@ -31,18 +31,13 @@ public class PlayerMovement : MonoBehaviour
     [Header("Animations")]
     [SerializeField] private Animator animator;
 
-    private bool isRestarting = false;  // Track if the game is in the process of restarting
+    private bool isRestarting = false;
 
     private void Start()
     {
-        // Ensure GameManager is initialized before using it
-        if (GameManager.instance == null)
-        {
-            Debug.LogError("GameManager instance is not initialized!");
-            return;  // Exit if GameManager is not ready yet
-        }
-        
-        gameManager = GameManager.instance;  // Safely reference GameManager
+        if (GameManager.instance == null) return;
+
+        gameManager = GameManager.instance;
     }
 
     private void Awake()
@@ -151,19 +146,10 @@ public class PlayerMovement : MonoBehaviour
     {
         if (transform.position.y < groundThreshold && !isRestarting)
         {
-            Debug.Log("Player is below ground, attempting to restart game...");
-
-            // Prevent multiple health decrements by setting the flag
             isRestarting = true;
 
-            // Check if GameManager is initialized before trying to restart
-            if (gameManager == null)
-            {
-                Debug.LogWarning("GameManager is not initialized!");
-                return;
-            }
+            if (gameManager == null) return;
 
-            // Invoke restart after a slight delay to give GameManager time to initialize
             Invoke("RestartGameWithDelay", 0.1f);
         }
     }
@@ -173,10 +159,6 @@ public class PlayerMovement : MonoBehaviour
         if (gameManager != null)
         {
             gameManager.RestartGame();
-        }
-        else
-        {
-            Debug.LogError("GameManager is still not initialized!");
         }
     }
 

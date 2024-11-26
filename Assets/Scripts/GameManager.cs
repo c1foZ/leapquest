@@ -38,8 +38,6 @@ public class GameManager : MonoBehaviour
 
     public void RestartGame()
     {
-        Debug.Log("Restarting the game...");
-
         score = 0;
         health -= 1;
 
@@ -61,7 +59,6 @@ public class GameManager : MonoBehaviour
 
     public void QuitGame()
     {
-        Debug.Log("Quitting the app...");
         #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
         #else
