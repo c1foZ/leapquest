@@ -2542,6 +2542,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Palm Ladder
       objectReference: {fileID: 0}
+    - target: {fileID: 4247611997798481365, guid: 329f79b96a0724ab9b55c5b88812c350, type: 3}
+      propertyPath: m_Size.y
+      value: 0.8676783
+      objectReference: {fileID: 0}
+    - target: {fileID: 4247611997798481365, guid: 329f79b96a0724ab9b55c5b88812c350, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.19401902
+      objectReference: {fileID: 0}
     - target: {fileID: 8170799182861149812, guid: 329f79b96a0724ab9b55c5b88812c350, type: 3}
       propertyPath: m_LocalPosition.x
       value: -11.21
