@@ -2,10 +2,7 @@ Library/
 Temp/
 obj/
 Logs/
-Build/
-Builds/
 UserSettings/
-Packages/
 .vscode
 .DS_Store
 
