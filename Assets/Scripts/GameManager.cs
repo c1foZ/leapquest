@@ -3,7 +3,6 @@ using UnityEngine.SceneManagement;
 using TMPro;
 
 public class GameManager : MonoBehaviour
-
 {
     public static GameManager instance;
     [SerializeField] private TextMeshProUGUI scoreText;
@@ -22,8 +21,9 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            Destroy(gameObject);
+            Destroy(gameObject); 
         }
+
         UpdateScoreText();
         UpdateHealthText();
     }
@@ -38,22 +38,35 @@ public class GameManager : MonoBehaviour
 
     public void RestartGame()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        Debug.Log("Restarting the game...");
+
         score = 0;
         health -= 1;
-        UpdateScoreText();
-        UpdateHealthText();
 
         if (health == 0)
         {
             QuitGame();
         }
+
+        UpdateScoreText();
+        UpdateHealthText();
+
+        Invoke("ReloadScene", 0.1f);
+    }
+
+    private void ReloadScene()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     public void QuitGame()
     {
-        Debug.Log("QUITTING THE APP!!!");
-        Application.Quit();
+        Debug.Log("Quitting the app...");
+        #if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+        #else
+        Application.Quit(); 
+        #endif
     }
 
     public void TogglePause()
@@ -70,10 +83,25 @@ public class GameManager : MonoBehaviour
 
     private void UpdateScoreText()
     {
-        scoreText.text = "SCORE: " + score.ToString();
+        if (scoreText != null)
+        {
+            scoreText.text = "SCORE: " + score.ToString();
+        }
+        else
+        {
+            Debug.LogWarning("Score Text is not assigned!");
+        }
     }
+
     private void UpdateHealthText()
     {
-        healthText.text = "HEALTH: " + health.ToString();
+        if (healthText != null)
+        {
+            healthText.text = "HEALTH: " + health.ToString();
+        }
+        else
+        {
+            Debug.LogWarning("Health Text is not assigned!");
+        }
     }
 }

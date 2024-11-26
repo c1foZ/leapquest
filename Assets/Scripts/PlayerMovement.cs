@@ -30,6 +30,21 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Animations")]
     [SerializeField] private Animator animator;
+
+    private bool isRestarting = false;  // Track if the game is in the process of restarting
+
+    private void Start()
+    {
+        // Ensure GameManager is initialized before using it
+        if (GameManager.instance == null)
+        {
+            Debug.LogError("GameManager instance is not initialized!");
+            return;  // Exit if GameManager is not ready yet
+        }
+        
+        gameManager = GameManager.instance;  // Safely reference GameManager
+    }
+
     private void Awake()
     {
         InitializeComponents();
@@ -38,7 +53,6 @@ public class PlayerMovement : MonoBehaviour
 
     private void InitializeComponents()
     {
-        gameManager = GameManager.instance;
         rb = GetComponent<Rigidbody2D>();
         groundLayer = LayerMask.GetMask(GroundLayerName);
         originalParent = transform.parent;
@@ -135,10 +149,34 @@ public class PlayerMovement : MonoBehaviour
 
     private void RestartIfBelowGround()
     {
-        if (transform.position.y < groundThreshold && gameManager != null)
+        if (transform.position.y < groundThreshold && !isRestarting)
         {
-            Debug.Log("Restarting game...");
+            Debug.Log("Player is below ground, attempting to restart game...");
+
+            // Prevent multiple health decrements by setting the flag
+            isRestarting = true;
+
+            // Check if GameManager is initialized before trying to restart
+            if (gameManager == null)
+            {
+                Debug.LogWarning("GameManager is not initialized!");
+                return;
+            }
+
+            // Invoke restart after a slight delay to give GameManager time to initialize
+            Invoke("RestartGameWithDelay", 0.1f);
+        }
+    }
+
+    private void RestartGameWithDelay()
+    {
+        if (gameManager != null)
+        {
             gameManager.RestartGame();
+        }
+        else
+        {
+            Debug.LogError("GameManager is still not initialized!");
         }
     }
 
