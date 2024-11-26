@@ -12,13 +12,12 @@ public class MovementJoystick : MonoBehaviour
 
     void Start()
     {
-        joystickOriginalPos = joystick.transform.position;  // Keep track of joystick's original position.
+        joystickOriginalPos = joystick.transform.position;
         joystickRadius = joystickArea.GetComponent<RectTransform>().sizeDelta.y / 2;
     }
 
     public void PointerDown()
     {
-        // Don't move the joystick when the area is touched. Keep its position fixed.
         joystickTouchPos = Input.mousePosition;
     }
 
@@ -30,7 +29,6 @@ public class MovementJoystick : MonoBehaviour
 
         float joystickDist = Vector2.Distance(dragPos, joystickTouchPos);
 
-        // Update the vector without changing the joystick's position.
         if (joystickDist < joystickRadius)
         {
             joystickVec = (dragPos - joystickTouchPos).normalized;
@@ -43,7 +41,6 @@ public class MovementJoystick : MonoBehaviour
 
     public void PointerUp()
     {
-        // Reset the joystick vector to zero when touch is released.
         joystickVec = Vector2.zero;
     }
 }
