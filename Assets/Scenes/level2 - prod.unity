@@ -219,22 +219,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1671960398694530909, guid: e2ecbf027b3044b0a9d62116de2e47df, type: 3}
-      propertyPath: m_fontSize
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 1671960398694530909, guid: e2ecbf027b3044b0a9d62116de2e47df, type: 3}
-      propertyPath: m_fontSizeBase
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 3516382728385483059, guid: e2ecbf027b3044b0a9d62116de2e47df, type: 3}
-      propertyPath: m_fontSize
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 3516382728385483059, guid: e2ecbf027b3044b0a9d62116de2e47df, type: 3}
-      propertyPath: m_fontSizeBase
-      value: 50
-      objectReference: {fileID: 0}
     - target: {fileID: 4710105521892667284, guid: e2ecbf027b3044b0a9d62116de2e47df, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.35133845
@@ -280,9 +264,7 @@ PrefabInstance:
       value: GameManager
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects:
-    - {fileID: 5256000968501449479, guid: e2ecbf027b3044b0a9d62116de2e47df, type: 3}
-    - {fileID: 821726137699421232, guid: e2ecbf027b3044b0a9d62116de2e47df, type: 3}
+    m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e2ecbf027b3044b0a9d62116de2e47df, type: 3}
