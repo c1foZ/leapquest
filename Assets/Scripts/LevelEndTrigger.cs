@@ -13,7 +13,6 @@ public class LevelEndTrigger : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            Debug.Log("Next level");
             gameManager.LoadNextLevel();
         }
     }

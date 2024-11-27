@@ -111,7 +111,7 @@ MonoBehaviour:
   minXLimit: -52.9
   maxXLimit: -18.9
   minYLimit: -2
-  maxYLimit: -1
+  maxYLimit: 0
 --- !u!114 &7297829141019973625
 MonoBehaviour:
   m_ObjectHideFlags: 0

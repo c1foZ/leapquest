@@ -7,7 +7,7 @@ public class CameraFollow : MonoBehaviour
     public float minXLimit = -2.3f;
     public float maxXLimit = 10f;
     public float minYLimit = -2f;
-    public float maxYLimit = -1f;
+    public float maxYLimit = 0f;
 
     private void LateUpdate()
     {

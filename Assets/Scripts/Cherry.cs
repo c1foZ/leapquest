@@ -3,7 +3,6 @@ using UnityEngine;
 public class Cherry : MonoBehaviour
 {
     private GameManager gameManager;
-
     private void Start()
     {
         gameManager = FindObjectOfType<GameManager>();
@@ -24,7 +23,6 @@ public class Cherry : MonoBehaviour
 
     private void CollectCherry()
     {
-        Debug.Log("Cherry collected!");
         if (gameManager != null)
         {
             gameManager.IncreaseScore(1);

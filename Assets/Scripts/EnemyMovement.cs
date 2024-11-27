@@ -107,7 +107,6 @@ public class EnemyMovement : MonoBehaviour
         {
             rb.AddForce(Vector2.up * 3f, ForceMode2D.Impulse);
             KillEnemy();
-            gameManager.IncreaseScore(3);
         }
     }
 

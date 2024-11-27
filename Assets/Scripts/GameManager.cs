@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
 
     private bool isGamePaused = false;
     private int score = 0;
+    private int totalScore = 0;
     private int health = 4;
 
     private void Awake()
@@ -23,7 +24,11 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject); 
         }
+    }
 
+    private void Start()
+    {
+        InitializeTotalCherries();
         UpdateScoreText();
         UpdateHealthText();
     }
@@ -60,6 +65,7 @@ public class GameManager : MonoBehaviour
     public void LoadNextLevel()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        StartCoroutine(InitializeAfterSceneLoad());
     }
 
     public void QuitGame()
@@ -87,7 +93,7 @@ public class GameManager : MonoBehaviour
     {
         if (scoreText != null)
         {
-            scoreText.text = "SCORE: " + score.ToString();
+            scoreText.text = "SCORE: " + score.ToString() + " of " + totalScore.ToString();
         }
         else
         {
@@ -105,5 +111,20 @@ public class GameManager : MonoBehaviour
         {
             Debug.LogWarning("Health Text is not assigned!");
         }
+    }
+
+    private void InitializeTotalCherries()
+    {
+        totalScore = GameObject.FindGameObjectsWithTag("Cherry").Length;
+    }
+
+    private System.Collections.IEnumerator InitializeAfterSceneLoad()
+    {
+
+        yield return null;
+
+        InitializeTotalCherries();
+        score = 0;
+        UpdateScoreText();
     }
 }
