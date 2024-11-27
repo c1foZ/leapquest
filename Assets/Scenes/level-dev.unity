@@ -606,7 +606,7 @@ Transform:
   m_GameObject: {fileID: 103308016}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -58.94, y: -1.65, z: -0.009253414}
+  m_LocalPosition: {x: -53.27, y: -1.65, z: -0.009253414}
   m_LocalScale: {x: 1.029386, y: 0.4622925, z: 0.74974674}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1855,7 +1855,7 @@ Transform:
   m_GameObject: {fileID: 864132926}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -58.94, y: 0.03, z: -0.009253414}
+  m_LocalPosition: {x: -51.41, y: -1.42, z: -0.009253414}
   m_LocalScale: {x: 1.029386, y: 0.4622925, z: 0.74974674}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2498,7 +2498,7 @@ Transform:
   m_GameObject: {fileID: 1135321126}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -58.91, y: -3.3889, z: -0.009253414}
+  m_LocalPosition: {x: -54.66, y: -3.3889, z: -0.009253414}
   m_LocalScale: {x: 1.029386, y: 0.4622925, z: 0.74974674}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2809,7 +2809,7 @@ GameObject:
   - component: {fileID: 1680800978}
   - component: {fileID: 1680800985}
   m_Layer: 3
-  m_Name: MovingPlatforms
+  m_Name: platform
   m_TagString: MovingPlatform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
