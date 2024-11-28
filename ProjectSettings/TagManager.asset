@@ -49,11 +49,11 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Terrain
-    uniqueID: 3542336883
-    locked: 0
   - name: Environment
     uniqueID: 4172033397
+    locked: 0
+  - name: Terrain
+    uniqueID: 3542336883
     locked: 0
   - name: Cherry
     uniqueID: 362650405
