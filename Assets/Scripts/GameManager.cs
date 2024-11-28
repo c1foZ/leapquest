@@ -8,7 +8,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI scoreText;
     [SerializeField] private TextMeshProUGUI healthText;
 
-    private bool isGamePaused = false;
     private int score = 0;
     private int totalScore = 0;
     private int health = 4;
@@ -33,14 +32,6 @@ public class GameManager : MonoBehaviour
         UpdateHealthText();
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            TogglePause();
-        }
-    }
-
     public void RestartGame()
     {
         score = 0;
@@ -55,6 +46,14 @@ public class GameManager : MonoBehaviour
         UpdateHealthText();
 
         Invoke("ReloadScene", 0.1f);
+    }
+
+    public void RestartGameFromMenu()
+    {
+        SceneManager.LoadScene(1);
+        StartCoroutine(InitializeAfterSceneLoad());
+        health = 4;
+        UpdateHealthText();
     }
 
     private void ReloadScene()
@@ -75,12 +74,6 @@ public class GameManager : MonoBehaviour
         #else
         Application.Quit(); 
         #endif
-    }
-
-    public void TogglePause()
-    {
-        isGamePaused = !isGamePaused;
-        Time.timeScale = isGamePaused ? 0f : 1f;
     }
 
     public void IncreaseScore(int amount)
