@@ -81,6 +81,8 @@ public class GameManager : MonoBehaviour
     {
         #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
+        #elif UNITY_WEBGL
+        Application.ExternalEval("if (document.fullscreenElement) { document.exitFullscreen(); }");
         #else
         Application.Quit(); 
         #endif
