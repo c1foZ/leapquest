@@ -63,8 +63,18 @@ public class GameManager : MonoBehaviour
 
     public void LoadNextLevel()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-        StartCoroutine(InitializeAfterSceneLoad());
+        int activeScene = SceneManager.GetActiveScene().buildIndex;
+        int sceneCount = SceneManager.sceneCountInBuildSettings;
+        if (activeScene < sceneCount - 1)
+        {
+            SceneManager.LoadScene(activeScene + 1);
+            StartCoroutine(InitializeAfterSceneLoad());
+        }
+        else
+        {
+            Destroy(gameObject);
+            SceneManager.LoadScene(0);
+        }
     }
 
     public void QuitGame()
