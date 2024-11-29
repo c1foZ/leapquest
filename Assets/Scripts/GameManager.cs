@@ -39,7 +39,7 @@ public class GameManager : MonoBehaviour
 
         if (health == 0)
         {
-            QuitGame();
+            RestartGameFromMenu();
         }
 
         UpdateScoreText();
